@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -14,7 +15,6 @@ namespace ComfortSleep.Services.BusinessLogic.Services
     public class ComplianceLevelService : Service<ComplianceLevel,int>
     {
         private readonly string connection;
-
         public ComplianceLevelService(DbContextProviderFactory dbContextFactory, string connection) : base(dbContextFactory)
         {
             this.connection = connection;
