@@ -14,9 +14,11 @@ namespace ComfortSleep.Services.BusinessLogic.Services
     public class ComplianceLevelService : Service<ComplianceLevel,int>
     {
         private readonly string connection;
-        public ComplianceLevelService(DbContextProviderFactory dbContextFactory, string connection) : base(dbContextFactory)
+        private string Test { get; set }
+        public ComplianceLevelService(DbContextProviderFactory dbContextFactory, string connection, string test) : base(dbContextFactory)
         {
             this.connection = connection;
+            Test = test;
         }
 
         public override List<ComplianceLevel> List(Expression<Func<ComplianceLevel, bool>> predicate = null, Expression<Func<ComplianceLevel, object>>[] prefetches = null, string sortExpression = null, int pageIndex = 0, int pageSize = 2147483647)
