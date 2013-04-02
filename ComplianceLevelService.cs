@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Transactions;
 using ComfortSleep.Common.Base;
+using System.Web.Controls;
 using ComfortSleep.Common.Base.Extensions;
 using ComfortSleep.Common.DataAccess;
 using ComfortSleep.Domain;
@@ -12,9 +13,11 @@ namespace ComfortSleep.Services.BusinessLogic.Services
 {
     public class ComplianceLevelService : Service<ComplianceLevel,int>
     {
-        public ComplianceLevelService(DbContextProviderFactory dbContextFactory) : base(dbContextFactory)
-        {
+        private readonly string connection;
 
+        public ComplianceLevelService(DbContextProviderFactory dbContextFactory, string connection) : base(dbContextFactory)
+        {
+            this.connection = connection;
         }
 
         public override List<ComplianceLevel> List(Expression<Func<ComplianceLevel, bool>> predicate = null, Expression<Func<ComplianceLevel, object>>[] prefetches = null, string sortExpression = null, int pageIndex = 0, int pageSize = 2147483647)
@@ -53,7 +56,8 @@ namespace ComfortSleep.Services.BusinessLogic.Services
 
         public ComplianceLevel GetNextLevel(ComplianceLevel level)
         {
-            if(level == null)
+	    // changed condition
+            if(level != null)
                 throw new ArgumentNullException("level");
 
             var entity = base.GetById(level.Id);
